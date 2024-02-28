@@ -1,0 +1,6 @@
+remove = ['x', 'mg', 'c', 'a', 'p', 'l', 'r', 's', 'ha', 'hari', 'tanggal', 'minggu', 'semalam', 'mitkel', 'rsi', 'kardinah', 'candesartan', 'aspilet', 'amlodipin', 'iu', 'clopidogrel', 'bisoprolol', 'g', 'orangnya', 'antibiotik', 'zik', 'bio', 'e', 'zik', 'inj', 'r', 'sp', 'i',
+          'pulang', 'naik', 'turun', 'berkurang', 'bromhexine', 'dengar', 'diagnosa', 'furosemid', 'futsal', 'goreng', 'hijau', 'berangkat', 'malam', 'muncul', 'analog', 'trinitat', 'glimepirid', 'minum', 'rumah',
+          'imunisasi', 'perbaikan', 'acarbose', 'anti', 'membaik', 'periksa', 'esperison', 'fenitoin', 'sebelah', 'medikasi', 'gliclazid', 'tolak', 'angin', 'seluruh', 'metformin', 'tablet', 'long', 'motivasi', 'keluhan',
+          'paracetamol', 'colcatriol', 'menerus', 'september', 'obat', 'senin', 'cefixime', 'pasien', 'spironolacton', 'pengobatan', 'mulai', 'lansopran', 'acetosal', 'rsu', 'rsi', 'kena', 'terkena',
+          'terasa', 'setelah', 'sampai', 'lalu', 'keluar', 'waktunya', 'kurang', 'pain', 'gangguan', 'membesar', 'nglokor', 'grok', 'nggogrok', 'nggliyeng', 'stang', 'pulpen', 'meloxicam', 'krues', 'titik', 'methyl', 'isdn', 'berputar',
+          'mrengkel', 'netes', 'susah', 'folat', 'ngganjel', 'kenceng', 'cekot', 'lintas', 'batas', 'hasil', 'dalam', 'anyangan', 'pandang', 'suara', 'yll', 'main', 'kadang']
