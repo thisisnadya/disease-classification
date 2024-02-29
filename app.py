@@ -32,7 +32,7 @@ def index():
     # process data for count most freq categories
     df1 = process_data(df)
     most_freq_category = calculate_frequencies(df1)
-    plot_category = generate_plot_freq_category(most_freq_category)
+    plot_category= generate_plot_freq_category(most_freq_category)
 
     # process data for most symptomps in the form of wordcloud
     word_freq = calculate_word_freq(df1)
