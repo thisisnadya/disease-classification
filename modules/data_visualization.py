@@ -55,7 +55,9 @@ def generate_plot_address(df_count_alamat):
     colors = ["#226089", "#427D9D", "#9BBEC8", "#B6C4B6", "#9EB8D9"]
 
     # plot in pie chart
-    plt.pie(df_count_alamat['Count'], colors=colors, autopct='%1.1f%%')
+    _, _, texts = plt.pie(df_count_alamat['Count'], colors=colors, autopct='%1.1f%%')
+
+    [text.set_color('white') for text in texts]
 
     # Create legend based on df_count_alamat['Kecamatan']
     plt.legend(df_count_alamat['Kecamatan'], loc='center left', bbox_to_anchor=(-0.6, 0.5))
@@ -96,17 +98,17 @@ def generate_plot_age_group(df_age_range_counts):
     return plot_age_group
 
 def generate_word_cloud(word_freq):
-    word_freq_dict = dict(word_freq)
-    wordcloud_generate = WordCloud(width=300, height=300, background_color='rgba(255, 255, 255, 0)').generate_from_frequencies(word_freq_dict)
-
     plt.clf()
+    word_freq_dict = dict(word_freq)
+    wordcloud_generate = WordCloud(width=400, height=300, background_color='rgba(255, 255, 255, 0)').generate_from_frequencies(word_freq_dict)
+
 
     plt.figure(figsize=(4, 2))
 
     plt.imshow(wordcloud_generate, interpolation='bilinear')
     plt.axis('off')
     plt.tight_layout()  # Ensure tight layout for responsive resizing
-    plt.gcf().set_size_inches(5, 5)  # Set a default size, which can be adjusted by CSS
+    plt.gcf().set_size_inches(4.5, 4)  # Set a default size, which can be adjusted by CSS
     # plt.show()
 
     # Convert plot to bytes

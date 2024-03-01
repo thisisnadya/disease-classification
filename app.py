@@ -1,13 +1,13 @@
 from flask import Flask, request, render_template
 import os
 import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-import re
 import pickle
-import modules.data_processing as dp
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
 
+
+# modules made by self
 from modules.data_processing import process_data, calculate_frequencies, load_data, process_data2, count_address, age_group
 from modules.data_visualization import generate_plot_freq_category, generate_plot_address, generate_plot_age_group, generate_word_cloud
 from modules.text_processing import clean_text, calculate_word_freq
@@ -19,7 +19,8 @@ nltk.download('wordnet')
 current_dir = os.path.dirname(__file__)
 app = Flask(__name__)
 
-# model = pickle.load(open('nb_model.pickle', 'rb'))
+model = pickle.load(open('./res/knn_model.pickle', 'rb')) # model used for prediction
+cv = pickle.load(open('./res/bow.pickle', 'rb')) # count vectorizer to transform the clean input into bag of words
 
 # load data
 excel_file_path = os.path.join(current_dir, 'res', 'Merged_All_Fixed.xlsx')
@@ -57,7 +58,31 @@ def index():
         # preprocess the input
         preprocessed_text = clean_text(input_text)
 
-        return render_template('result.html', preprocessed_text=preprocessed_text, plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud)
+        print(preprocessed_text)
+
+        # Concatenate the list of strings into a single string
+        # preprocessed_text = ' '.join(preprocessed_text)
+
+        # transform the input into bag of words
+        bow_input = cv.transform([preprocessed_text])
+
+        # make a classification
+        target_class = model.predict(bow_input)
+        print(target_class)
+
+        if target_class == [1]:
+            prediction = '[J] Penyakit pada sistem respirasi'
+        elif target_class == [2]:
+            prediction = '[R] Gejala, tanda, hasil abnormal dari prosedur klinis atau prosedur investigasi lainnya (Perlu Pemeriksaan Lebih Lanjut)'
+        elif target_class == [3]:
+            prediction = '[I] Penyakit pada sistem peredaran darah'
+        elif target_class == [4]:
+            prediction = '[K] Penyakit pada sistem pencernaan'
+        else:
+            prediction = 'Lainnya. Perlu Pemeriksaan Lebih Lanjut'
+
+
+        return render_template('result.html', preprocessed_text=preprocessed_text, plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud, target_class=prediction)
 
     return render_template('index.html', plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud)
 

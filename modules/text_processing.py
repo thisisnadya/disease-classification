@@ -78,7 +78,7 @@ def clean_text(text):
     # lemmatize words
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
 
-    # print(tokens[:10])
+    # print(tokens)
 
     # Join the tokens back into a string
     text = ' '.join(tokens)

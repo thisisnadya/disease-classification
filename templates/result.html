@@ -9,21 +9,18 @@
         <meta content="" name="keywords">
 
         <!-- Favicons -->
-        <link href="{{ url_for('static', filename='assets/img/favicon.png') }}" rel="icon">
-        <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+        <!-- <link href="{{ url_for('static', filename='assets/img/favicon.png') }}" rel="icon"> -->
+        <!-- <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon"> -->
 
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
         <!-- Vendor CSS Files -->
-        <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+        <!-- use bootsrap cdn -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <!-- Template Main CSS File -->
         <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
@@ -52,12 +49,9 @@
 
         <main id="main" class="main">
 
-            <div class="pagetitle text-center">
-              <h1>Klinik Medicall Tegal Report
-                <br>
-                <br>
-                Agustus - September 2023
-              </h1>
+            <div class="pagetitle text-center mb-2">
+              <h1 style="font-size: 45px;">Klinik Medicall Tegal Report</h1>
+              <h3>Agustus - September 2023</h3>
             </div><!-- End Page Title -->
         
             <section class="section dashboard">
@@ -76,12 +70,12 @@
         
                           <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="bi bi-cart"></i>
+                              <i class="bi bi-people"></i>
                             </div>
                             <div class="ps-3">
-                              <h6>145</h6>
-                              <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-        
+                              <span class="text-success small pt-1 fw-bold">Poli Umum: 4</span>
+                              <br>
+                              <span class="text-success small pt-1 fw-bold">Poli Gigi: 2</span>
                             </div>
                           </div>
                         </div>
@@ -94,16 +88,15 @@
                       <div class="card info-card revenue-card">
         
                         <div class="card-body">
-                          <h5 class="card-title">Jumlah Poli <span>| This Month</span></h5>
+                          <h5 class="card-title">Jumlah Poli</h5>
         
                           <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="bi bi-currency-dollar"></i>
+                              <i class="bi bi-hospital"></i>
                             </div>
                             <div class="ps-3">
-                              <h6>$3,264</h6>
-                              <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-        
+                              <h6>3</h6>
+                              <span class="text-success small pt-1 fw-bold">Poli Umum | Gigi | KIA</span>   
                             </div>
                           </div>
                         </div>
@@ -117,16 +110,14 @@
                       <div class="card info-card customers-card">
         
                         <div class="card-body">
-                          <h5 class="card-title">Banyak Pasien <span>| This Year</span></h5>
+                          <h5 class="card-title">Banyak Pasien</h5>
         
                           <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                               <i class="bi bi-people"></i>
                             </div>
                             <div class="ps-3">
-                              <h6>1244</h6>
-                              <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-        
+                              <h6>2158</h6>        
                             </div>
                           </div>
         
@@ -145,11 +136,14 @@
                               <form action="/" method="post" class="search-form d-flex align-items-center">
                                 <div class="input-group">
                                     <input type="text" name="input_text" placeholder="Masukkan gejala" class="form-control">
-                                    <button type="submit" class="btn btn-primary">Cek</button>
-
-                                    <h4>Prepocessed Text: {{ preprocessed_text }}</h4>
+                                    <button type="submit" class="btn" style="background-color: #3F7A9C; color: #fff;">Cek</button>
                                 </div>
                               </form>
+                              <div class="py-3 text-center">
+                                <h6><strong> Hasil diagnosis: </strong></h6>
+                                <span class="font-weight-bold">{{ target_class }}</span>
+                              </div>
+                              
                           </div>
                             
                         </div>
@@ -162,7 +156,7 @@
                       <div class="card recent-sales overflow-auto">
         
                         <div class="card-body">
-                          <h5 class="card-title">Kategori Penyakit Terbanyak</h5>
+                          <h5 class="card-title">Kategori Penyakit Terbanyak Berdasarkan Kode ICD-10</h5>
                           <div class="graph1">
                               <img src="data:image/png;base64,{{ plot_category }}" alt="Most Frequent Diagnosis Category">
                           </div>
@@ -170,7 +164,49 @@
         
                       </div>
                     </div><!-- End Kategori Penyakit Terbanyak -->
+                    
+                    <!-- keterangan kategori penyakit terbanyak -->
+                    <div class="col-12">
+                      <div class="card recent-sales overflow-auto">
         
+                        <div class="card-body">
+                          <h5 class="card-title">Keterangan Kategori Penyakit (ICD-10)</h5>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <ul>
+                                <li><strong>A00-B00:</strong> Certain infectious and parasitic diseases</li>
+                                <li><strong>C00-D49:</strong> Neoplasms</li>
+                                <li><strong>D50-D89:</strong> Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism</li>
+                                <li><strong>E00-E89:</strong> Endocrine, nutrional, and metabolic diseases</li>
+                                <li><strong>F01-F09:</strong> Mental, behavioral, and neurodevelopmental disorders</li>
+                                <li><strong>G00-G99:</strong> Diseases of the nervous system</li>
+                                <li><strong>H00-H59:</strong> Diseases of the eye and adnexa</li>
+                                <li><strong>H60-H95:</strong> Diseases of the ear and mastoid process</li>
+                                <li><strong>I00-I99:</strong> Diseases of the circulatory system</li>
+                                <li><strong>J00-J99:</strong> Diseases of the respiratory system</li>
+                                <li><strong>K00-K95:</strong> Diseases of the digestive system</li>
+                                <li><strong>M00-M99:</strong> Diseases of the musculoskeletal system and connective tissue</li>
+                              </ul>
+                            </div>
+                            <div class="col-md-6">
+                              <ul>
+                                <li><strong>L00-L99:</strong> Diseases of the skin and subcutaneous tissue</li>
+                                <li><strong>N00-N99:</strong> Diseases of the genitourinary system</li>
+                                <li><strong>O00-O9A:</strong> Pregnancy, childbirth, and the puerperium</li>
+                                <li><strong>P00-P96:</strong> Certain conditions originating in the perinatal period</li>
+                                <li><strong>Q00-Q99:</strong> Congenital malformations, deformations, and chromosomal abnormalities</li>
+                                <li><strong>R00-R99:</strong> Symptomps, signs, and abnormal clinical and laboratory findings, not elsewhere classified</li>
+                                <li><strong>S00-T88:</strong> Injury, poisoning, and certain other consequences of external causes</li>
+                                <li><strong>U00-U85:</strong> Codes for special purposes</li>
+                                <li><strong>V00-Y99:</strong> External causes for morbidity</li>
+                                <li><strong>Z00-Z99:</strong> Factors influencing health status and contact with health services</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- End Keterangan Kategori Penyakit Terbanyak -->
+
                   </div>
                 </div><!-- End Left side columns -->
         
@@ -236,17 +272,5 @@
         
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <!-- Vendor JS Files -->
-        <script src="{{ url_for('static', filename='assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/chart.js/chart.umd.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/echarts/echarts.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/quill/quill.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/tinymce/tinymce.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
-
-        <!-- Template Main JS File -->
-        <script src="assets/js/main.js"></script>
     </body>
 </html>
