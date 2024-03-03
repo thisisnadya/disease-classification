@@ -153,8 +153,8 @@
         
                         <div class="card-body">
                           <h5 class="card-title">Kategori Penyakit Terbanyak Berdasarkan Kode ICD-10</h5>
-                          <div class="graph1">
-                              <img src="data:image/png;base64,{{ plot_category }}" alt="Most Frequent Diagnosis Category">
+                          <div class="graph1" id="category">
+                              <!-- <img src="data:image/png;base64,{{ plot_category }}" alt="Most Frequent Diagnosis Category"> -->
                           </div>
                         </div>
         
@@ -215,22 +215,17 @@
         
                     <div class="card-body">
                       <h5 class="card-title">Kelompok Usia Pasien</h5>
-                      <div class="graph2">
-                          <img src="data:image/png;base64,{{ plot_age_group }}" alt="Kelompok Usia Pasien">
-                      </div>
+                      <div class="graph2" id="ageGroup"></div>
                     </div>
-                  </div><!-- End Recent Activity -->
+                  </div><!-- End Kelompok Usia Pasien -->
         
                   <!-- Persebaran Alamat -->
                   <div class="card">
                     <div class="card-body pb-0">
                       <h5 class="card-title">Sebaran Domisili Pasien</h5>
-                      <div id="budgetChart" style="min-height: 250px;" class="echart">
-                        <img src="data:image/png;base64,{{ plot_address }}" alt="Most Frequent Diagnosis Category">
-                      </div>
-        
+                      <div id="budgetChart" style="min-height: 250px;" class="echart"></div>
                     </div>
-                  </div><!-- End Budget Report -->
+                  </div><!-- End Persebaran Alamat -->
         
                   <!-- Wordcloud -->
                   <div class="card">
@@ -269,5 +264,21 @@
         
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <!-- plotly library -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <!-- JavaScript to render Plotly plot -->
+        <script>
+          // Parse Plotly JSON data from Flask and render the plot
+          // @ts-ignore: Suppress TypeScript errors for Jinja template syntax
+          var plotDataAddress = {{ plot_address | safe }}
+          var plotDataFreqCategory = {{ plot_category | safe }}
+          var plotDataAgeGroup = {{ plot_age_group | safe }}
+
+          Plotly.newPlot('budgetChart', plotDataAddress);
+          Plotly.newPlot('category', plotDataFreqCategory);
+          Plotly.newPlot('ageGroup', plotDataAgeGroup);
+        </script>
     </body>
 </html>

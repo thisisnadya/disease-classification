@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 import os
 import nltk
 import pickle
+import json
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
@@ -9,7 +10,7 @@ from sklearn.model_selection import train_test_split
 
 # modules made by self
 from modules.data_processing import process_data, calculate_frequencies, load_data, process_data2, count_address, age_group
-from modules.data_visualization import generate_plot_freq_category, generate_plot_address, generate_plot_age_group, generate_word_cloud
+from modules.data_visualization import generate_plot_category, generate_plot_address, generate_plot_age_group, generate_word_cloud
 from modules.text_processing import clean_text, calculate_word_freq
 
 nltk.download('punkt')
@@ -25,32 +26,31 @@ cv = pickle.load(open('./res/bow.pickle', 'rb')) # count vectorizer to transform
 # load data
 excel_file_path = os.path.join(current_dir, 'res', 'Merged_All_Fixed.xlsx')
 
+# load data
+df = load_data(excel_file_path)
+
+# process data for count most freq categories
+df1 = process_data(df)
+most_freq_category = calculate_frequencies(df1)
+plot_category= generate_plot_category(most_freq_category)
+
+# process data for most symptomps in the form of wordcloud
+word_freq = calculate_word_freq(df1)
+plot_wordcloud = generate_word_cloud(word_freq)
+
+# process data for another mining
+df2 = process_data2(df)
+
+# count address percentage
+address_percentage = count_address(df2)
+plot_address = generate_plot_address(address_percentage)
+
+# create age group
+count_age_group = age_group(df2)
+plot_age_group = generate_plot_age_group(count_age_group)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # load data
-    df = load_data(excel_file_path)
-
-    # process data for count most freq categories
-    df1 = process_data(df)
-    most_freq_category = calculate_frequencies(df1)
-    plot_category= generate_plot_freq_category(most_freq_category)
-
-    # process data for most symptomps in the form of wordcloud
-    word_freq = calculate_word_freq(df1)
-    plot_wordcloud = generate_word_cloud(word_freq)
-
-    # process data for another mining
-    df2 = process_data2(df)
-
-    # count address percentage
-    address_percentage = count_address(df2)
-    plot_address = generate_plot_address(address_percentage)
-
-    # create age group
-    count_age_group = age_group(df2)
-    plot_age_group = generate_plot_age_group(count_age_group)
-
-    
     if request.method == 'POST':
         # get the input
         input_text = request.form['input_text']
@@ -67,20 +67,18 @@ def index():
         bow_input = cv.transform([preprocessed_text])
 
         # make a classification
-        target_class = model.predict(bow_input)
+        target_class = model.predict(bow_input)[0]
         print(target_class)
 
-        if target_class == [1]:
-            prediction = '[J] Penyakit pada sistem respirasi'
-        elif target_class == [2]:
-            prediction = '[R] Gejala, tanda, hasil abnormal dari prosedur klinis atau prosedur investigasi lainnya (Perlu Pemeriksaan Lebih Lanjut)'
-        elif target_class == [3]:
-            prediction = '[I] Penyakit pada sistem peredaran darah'
-        elif target_class == [4]:
-            prediction = '[K] Penyakit pada sistem pencernaan'
-        else:
-            prediction = 'Lainnya. Perlu Pemeriksaan Lebih Lanjut'
+        # Map predicted label to corresponding category
+        label_map = {
+            1: '[J] Penyakit pada sistem respirasi',
+            2: '[R] Gejala, tanda, hasil abnormal dari prosedur klinis atau prosedur investigasi lainnya (Perlu Pemeriksaan Lebih Lanjut)',
+            3: '[I] Penyakit pada sistem peredaran darah',
+            4: '[K] Penyakit pada sistem pencernaan'
+        }
 
+        prediction = label_map.get(target_class, 'Lainnya. Perlu Pemeriksaan Lebih Lanjut')
 
         return render_template('result.html', preprocessed_text=preprocessed_text, plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud, target_class=prediction)
 

@@ -74,9 +74,12 @@ def count_address(df):
 
 def age_group(df):
    # buat kelompok usia
-   df['age_range'] = pd.cut(df['Usia'], bins=[0, 5, 10, 19, 60, 100], labels=['balita', 'anak', 'remaja', 'dewasa', 'lansia'], right=False)
+   df['age_range'] = pd.cut(df['Usia'], bins=[0, 5, 10, 19, 60, 100], labels=['Balita', 'Anak', 'Remaja', 'Dewasa', 'Lansia'], right=False)
 
-   df_age_range_counts = df['age_range'].value_counts()
+   df_age_range_counts = df['age_range'].value_counts().reset_index()
+   print(df_age_range_counts)
+
+   df_age_range_counts = df_age_range_counts.rename(columns={'age_range': 'Kategori', 'count': 'Jumlah'})
 
    return df_age_range_counts
 
