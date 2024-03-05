@@ -72,10 +72,10 @@ def index():
 
         # Map predicted label to corresponding category
         label_map = {
-            1: '[J] Penyakit pada sistem respirasi',
-            2: '[R] Gejala, tanda, hasil abnormal dari prosedur klinis atau prosedur investigasi lainnya (Perlu Pemeriksaan Lebih Lanjut)',
-            3: '[I] Penyakit pada sistem peredaran darah',
-            4: '[K] Penyakit pada sistem pencernaan'
+            1: '[ J ] Penyakit pada sistem respirasi',
+            2: '[ R ] Gejala, tanda, hasil abnormal dari prosedur klinis atau prosedur investigasi lainnya (Perlu Pemeriksaan Lebih Lanjut)',
+            3: '[ I ] Penyakit pada sistem peredaran darah',
+            4: '[ K ] Penyakit pada sistem pencernaan'
         }
 
         prediction = label_map.get(target_class, 'Lainnya. Perlu Pemeriksaan Lebih Lanjut')

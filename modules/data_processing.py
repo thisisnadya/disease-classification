@@ -28,7 +28,7 @@ def process_data(df):
 def calculate_frequencies(df):
     # find the most frequent category by first letter & visualize it
     most_freq_category = df['DIAGNOSA'].str[2].value_counts().reset_index()
-    most_freq_category.columns = ['Letter', 'Count']
+    most_freq_category.columns = ['Kategori', 'Jumlah']
 
     return most_freq_category
 

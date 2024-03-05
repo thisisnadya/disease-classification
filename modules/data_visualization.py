@@ -9,7 +9,7 @@ from io import BytesIO
 import base64
 
 def generate_plot_category(most_freq_category):
-    fig = px.bar(most_freq_category, x='Letter', y='Count', hover_data=['Count'], color_discrete_sequence=['#4F709C'], template='plotly')
+    fig = px.bar(most_freq_category, x='Kategori', y='Jumlah', hover_data=['Jumlah'], color_discrete_sequence=['#4F709C'], template='plotly')
 
 
     plot_data_freq_category = fig.to_json()
