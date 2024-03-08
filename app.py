@@ -65,6 +65,7 @@ def index():
 
         # transform the input into bag of words
         bow_input = cv.transform([preprocessed_text])
+        print("Number of features in input text:", bow_input.shape[1])
 
         # make a classification
         target_class = model.predict(bow_input)[0]

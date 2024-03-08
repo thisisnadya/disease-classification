@@ -43,9 +43,31 @@
                 <img src="assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Medicall</span>
             </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
             </div><!-- End Logo -->
 
         </header><!-- End Header -->
+
+        <aside id="sidebar" class="sidebar">
+
+          <ul class="sidebar-nav" id="sidebar-nav">
+      
+            <li class="nav-item">
+              <a class="nav-link " href="index.html">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+              </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+              <a class="nav-link " href="index.html">
+                <i class="bi bi-bar-chart"></i>
+                <span>Charts</span>
+              </a>
+            </li><!-- End Charts Nav -->
+          </ul>
+        </aside><!-- End Sidebar-->
+
 
         <main id="main" class="main">
 
@@ -135,7 +157,7 @@
                           <div class="search-bar">
                               <form action="/" method="post" class="search-form d-flex align-items-center">
                                 <div class="input-group">
-                                    <input type="text" name="input_text" placeholder="Masukkan gejala" class="form-control">
+                                    <input type="text" name="input_text" placeholder="Masukkan gejala" class="form-control" required>
                                     <button type="submit" class="btn" style="background-color: #3F7A9C; color: #fff;">Cek</button>
                                 </div>
                               </form>
