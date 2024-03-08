@@ -39,7 +39,7 @@
         <header id="header" class="header fixed-top d-flex align-items-center">
 
             <div class="d-flex align-items-center justify-content-between">
-              <a href="index.html" class="logo d-flex align-items-center">
+              <a href="/" class="logo d-flex align-items-center">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">Medicall</span>
               </a>
@@ -53,16 +53,16 @@
           <ul class="sidebar-nav" id="sidebar-nav">
       
             <li class="nav-item">
-              <a class="nav-link " href="index.html">
+              <a class="nav-link " href="/">
                 <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+                <span>Prediksi</span>
               </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-              <a class="nav-link " href="index.html">
+              <a class="nav-link " href="/data">
                 <i class="bi bi-bar-chart"></i>
-                <span>Charts</span>
+                <span>Laporan</span>
               </a>
             </li><!-- End Charts Nav -->
           </ul>
@@ -72,8 +72,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle text-center mb-2">
-              <h1 style="font-size: 45px;">Klinik Medicall Tegal Report</h1>
-              <h3>Agustus - September 2023</h3>
+              <h1 style="font-size: 45px;">Klinik Medicall Tegal</h1>
             </div><!-- End Page Title -->
         
             <section class="section dashboard">
@@ -82,72 +81,6 @@
                 <!-- Left side columns -->
                 <div class="col-lg-8">
                   <div class="row">
-        
-                    <!-- Jumlah dokter -->
-                    <div class="col-xxl-4 col-md-6">
-                      <div class="card info-card sales-card">
-        
-                        <div class="card-body">
-                          <h5 class="card-title">Jumlah Dokter</h5>
-        
-                          <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="bi bi-people"></i>
-                            </div>
-                            <div class="ps-3">
-                              <span class="text-success small pt-1 fw-bold">Poli Umum: 4</span>
-                              <br>
-                              <span class="text-success small pt-1 fw-bold">Poli Gigi: 2</span>
-        
-                            </div>
-                          </div>
-                        </div>
-        
-                      </div>
-                    </div><!-- End Jumlah Dokter -->
-        
-                    <!-- Jumlah Poli -->
-                    <div class="col-xxl-4 col-md-6">
-                      <div class="card info-card revenue-card">
-        
-                        <div class="card-body">
-                          <h5 class="card-title">Jumlah Poli</h5>
-        
-                          <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="bi bi-hospital"></i>
-                            </div>
-                            <div class="ps-3">
-                                <h6>3</h6>
-                                <span class="text-success small pt-1 fw-bold">Poli Umum | Gigi | KIA</span>   
-                            </div>
-                          </div>
-                        </div>
-        
-                      </div>
-                    </div><!-- End Jumlah Poli -->
-        
-                    <!-- Jumlah Pasien -->
-                    <div class="col-xxl-4 col-xl-12">
-        
-                      <div class="card info-card customers-card">
-        
-                        <div class="card-body">
-                          <h5 class="card-title">Banyak Pasien</h5>
-        
-                          <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="bi bi-people"></i>
-                            </div>
-                            <div class="ps-3">
-                              <h6>2158</h6>        
-                            </div>
-                          </div>
-        
-                        </div>
-                      </div>
-        
-                    </div><!-- End Jumlah Pasien -->
         
                     <!-- Mulai Diagnosis -->
                     <div class="col-12">
@@ -168,21 +101,6 @@
         
                       </div>
                     </div><!-- End Mulai Diagnosis -->
-        
-                    <!-- Kategori Penyakit Terbanyak -->
-                    <div class="col-12">
-                      <div class="card recent-sales overflow-auto">
-        
-                        <div class="card-body">
-                          <h5 class="card-title">Kategori Penyakit Terbanyak Berdasarkan Kode ICD-10</h5>
-                          <div class="graph1" id="category">
-                              <!-- <img src="data:image/png;base64,{{ plot_category }}" alt="Most Frequent Diagnosis Category"> -->
-                          </div>
-                        </div>
-        
-                      </div>
-                    </div><!-- End Kategori Penyakit Terbanyak -->
-
 
                     <!-- keterangan kategori penyakit terbanyak -->
                     <div class="col-12">
@@ -232,36 +150,51 @@
                 <!-- Right side columns -->
                 <div class="col-lg-4">
         
-                  <!-- Kelompok Usia Pasien -->
+                  <!-- Riwayat -->
                   <div class="card">
-        
                     <div class="card-body">
-                      <h5 class="card-title">Kelompok Usia Pasien</h5>
-                      <div class="graph2" id="ageGroup"></div>
+                      <h5 class="card-title">Aktivitas Terbaru</h5>
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th scope="col">Gejala</th>
+                              <th scope="col">Diagnosis</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% set counter = 1 %}
+                            {% for prediction in history %}
+                            <tr>
+                                <th scope="row">{{ counter }}</th>
+                                <td>{{ prediction.gejala }}</td>
+                                <td>{{ prediction.diagnosis }}</td>
+                            </tr>
+                            {% set counter = counter + 1 %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                              <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                              <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
                     </div>
-                  </div><!-- End Kelompok Usia Pasien -->
-        
-                  <!-- Persebaran Alamat -->
-                  <div class="card">
-                    <div class="card-body pb-0">
-                      <h5 class="card-title">Sebaran Domisili Pasien</h5>
-                      <div id="budgetChart" style="min-height: 250px;" class="echart"></div>
-                    </div>
-                  </div><!-- End Persebaran Alamat -->
-        
-                  <!-- Wordcloud -->
-                  <div class="card">
-        
-                    <div class="card-body pb-0">
-                      <h5 class="card-title">Gejala Umum</h5>
-        
-                      <div id="budgetChart" style="height: 100%; width: 100%;" class="echart">
-                        <img src="data:image/png;base64,{{ plot_wordcloud }}" alt="Most Frequent Diagnosis Category">
-                      </div>
-        
-                    </div>
-                  </div>
-                  <!-- end wordcloud -->
+                  </div><!-- End Riwayat-->
+
+                  
         
                 </div><!-- End Right side columns -->
         

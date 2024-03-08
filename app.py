@@ -13,6 +13,8 @@ from modules.data_processing import process_data, calculate_frequencies, load_da
 from modules.data_visualization import generate_plot_category, generate_plot_address, generate_plot_age_group, generate_word_cloud
 from modules.text_processing import clean_text, calculate_word_freq
 
+from res.history import history
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -58,18 +60,18 @@ def index():
         # preprocess the input
         preprocessed_text = clean_text(input_text)
 
-        print(preprocessed_text)
+        # print(preprocessed_text)
 
         # Concatenate the list of strings into a single string
         # preprocessed_text = ' '.join(preprocessed_text)
 
         # transform the input into bag of words
         bow_input = cv.transform([preprocessed_text])
-        print("Number of features in input text:", bow_input.shape[1])
+        # print("Number of features in input text:", bow_input.shape[1])
 
         # make a classification
         target_class = model.predict(bow_input)[0]
-        print(target_class)
+        # print(target_class)
 
         # Map predicted label to corresponding category
         label_map = {
@@ -81,9 +83,19 @@ def index():
 
         prediction = label_map.get(target_class, 'Lainnya. Perlu Pemeriksaan Lebih Lanjut')
 
-        return render_template('result.html', preprocessed_text=preprocessed_text, plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud, target_class=prediction)
+        history.append({'gejala': input_text, 'diagnosis': prediction})
+        print(history)
 
-    return render_template('index.html', plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud)
+
+        return render_template('result.html', plot_age_group=plot_age_group, target_class=prediction, history=history)
+
+    return render_template('index.html', plot_age_group=plot_age_group, history=history)
+
+
+@app.route('/data', methods=['GET'])
+def data():
+    return render_template('data.html', plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud)
+
 
 if(__name__)=='__main__':
     app.run(debug=True)

@@ -26,8 +26,8 @@ def generate_plot_address(df_count_alamat):
 
 
 def generate_plot_age_group(df_age_range_counts):
-    fig = px.bar(df_age_range_counts, x='Kategori', y='Jumlah', color_discrete_sequence=['#34626C'], width=350, height=300)
-
+    fig = px.bar(df_age_range_counts, x='Kategori', y='Jumlah', color_discrete_sequence=['#34626C'])
+    fig.update_layout(width=350, height=300, autosize=True)
     plot_age_group = fig.to_json()
     return plot_age_group
     
