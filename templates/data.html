@@ -280,9 +280,11 @@
           var plotDataFreqCategory = {{ plot_category | safe }}
           var plotDataAgeGroup = {{ plot_age_group | safe }}
 
-          Plotly.newPlot('budgetChart', plotDataAddress);
-          Plotly.newPlot('category', plotDataFreqCategory);
-          Plotly.newPlot('ageGroup', plotDataAgeGroup);
+          var config = {responsive: true}
+
+          Plotly.newPlot('budgetChart', plotDataAddress, config);
+          Plotly.newPlot('category', plotDataFreqCategory, config);
+          Plotly.newPlot('ageGroup', plotDataAgeGroup, config);
         </script>
     </body>
 </html>

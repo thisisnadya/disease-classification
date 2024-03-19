@@ -18,7 +18,7 @@ def generate_plot_category(most_freq_category):
 
 def generate_plot_address(df_count_alamat):
     # create pie chart with hover tooltips
-    fig = px.pie(df_count_alamat, values='Count', names='Kecamatan', hover_data=['Count'], color_discrete_sequence=["#226089", "#427D9D", "#9BBEC8", "#B6C4B6", "#9EB8D9"], width=350, height=300)
+    fig = px.pie(df_count_alamat, values='Count', names='Kecamatan', hover_data=['Count'], color_discrete_sequence=["#226089", "#427D9D", "#9BBEC8", "#B6C4B6", "#9EB8D9"])
 
     plot_data_address = fig.to_json()
 
@@ -27,14 +27,14 @@ def generate_plot_address(df_count_alamat):
 
 def generate_plot_age_group(df_age_range_counts):
     fig = px.bar(df_age_range_counts, x='Kategori', y='Jumlah', color_discrete_sequence=['#34626C'])
-    fig.update_layout(width=350, height=300, autosize=True)
+    # fig.update_layout(width=350, height=300, autosize=True)
     plot_age_group = fig.to_json()
     return plot_age_group
     
 def generate_word_cloud(word_freq):
     plt.clf()
     word_freq_dict = dict(word_freq)
-    wordcloud_generate = WordCloud(width=300, height=200, background_color='rgba(255, 255, 255, 0)').generate_from_frequencies(word_freq_dict)
+    wordcloud_generate = WordCloud(background_color='rgba(255, 255, 255, 0)').generate_from_frequencies(word_freq_dict)
 
 
     plt.figure(figsize=(4, 2))

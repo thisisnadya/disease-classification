@@ -163,38 +163,38 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th scope="col">No</th>
                             <th scope="col">Gejala</th>
                             <th scope="col">Diagnosis</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% set counter = 1 %}
                           {% for prediction in history %}
-                          <tr>
-                              <th scope="row">{{ counter }}</th>
-                              <td>{{ prediction.gejala }}</td>
-                              <td>{{ prediction.diagnosis }}</td>
-                          </tr>
-                          {% set counter = counter + 1 %}
+                            <tr>
+                                <td>{{ prediction.gejala }}</td>
+                                <td>{{ prediction.diagnosis }}</td>
+                            </tr>
                           {% endfor %}
                         </tbody>
                       </table>
+
+                      <!-- pagination start -->
                       <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
+                          {% if page > 1 %}
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                            <a class="page-link" href="?page={{ page - 1 }}" aria-label="Previous">
                               <span aria-hidden="true">&laquo;</span>
                             </a>
                           </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          {% endif %}
+
+                          {% if page < (( history | length ) // 5 ) + 1 %}
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" href="?page={{ page + 1 }}" aria-label="Next">
                               <span aria-hidden="true">&raquo;</span>
                             </a>
                           </li>
+                          {% endif %}
                         </ul>
                       </nav>
                     </div>

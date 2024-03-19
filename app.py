@@ -51,19 +51,27 @@ plot_address = generate_plot_address(address_percentage)
 count_age_group = age_group(df2)
 plot_age_group = generate_plot_age_group(count_age_group)
 
+
+def paginate(page_number, per_page = 5):
+    start_idx = (page_number - 1) * per_page
+    end_idx = start_idx + per_page
+
+    return history[start_idx:end_idx]
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    page = request.args.get('page', default=1, type=int)
+
+    paginated_history = paginate(page)
+
     if request.method == 'POST':
         # get the input
         input_text = request.form['input_text']
         
         # preprocess the input
         preprocessed_text = clean_text(input_text)
-
-        # print(preprocessed_text)
-
-        # Concatenate the list of strings into a single string
-        # preprocessed_text = ' '.join(preprocessed_text)
 
         # transform the input into bag of words
         bow_input = cv.transform([preprocessed_text])
@@ -84,12 +92,13 @@ def index():
         prediction = label_map.get(target_class, 'Lainnya. Perlu Pemeriksaan Lebih Lanjut')
 
         history.append({'gejala': input_text, 'diagnosis': prediction})
+
+        paginated_history = paginate(page)
         print(history)
 
+        return render_template('result.html', plot_age_group=plot_age_group, target_class=prediction, history=paginated_history, page=page)
 
-        return render_template('result.html', plot_age_group=plot_age_group, target_class=prediction, history=history)
-
-    return render_template('index.html', plot_age_group=plot_age_group, history=history)
+    return render_template('index.html', plot_age_group=plot_age_group, history=paginated_history, page=page)
 
 
 @app.route('/data', methods=['GET'])
