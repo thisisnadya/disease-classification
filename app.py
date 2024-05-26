@@ -22,8 +22,8 @@ nltk.download('wordnet')
 current_dir = os.path.dirname(__file__)
 app = Flask(__name__)
 
-model = pickle.load(open('./res/knn_model.pickle', 'rb')) # model used for prediction
-cv = pickle.load(open('./res/bow.pickle', 'rb')) # count vectorizer to transform the clean input into bag of words
+model = pickle.load(open('./res/final_knn.pickle', 'rb')) # model used for prediction
+cv = pickle.load(open('./res/final_bow.pickle', 'rb')) # count vectorizer to transform the clean input into bag of words
 
 # load data
 excel_file_path = os.path.join(current_dir, 'res', 'Merged_All_Fixed.xlsx')
@@ -37,8 +37,8 @@ most_freq_category = calculate_frequencies(df1)
 plot_category= generate_plot_category(most_freq_category)
 
 # process data for most symptomps in the form of wordcloud
-word_freq = calculate_word_freq(df1)
-plot_wordcloud = generate_word_cloud(word_freq)
+# word_freq = calculate_word_freq(df1)
+# plot_wordcloud = generate_word_cloud(word_freq)
 
 # process data for another mining
 df2 = process_data2(df)
@@ -103,7 +103,7 @@ def index():
 
 @app.route('/data', methods=['GET'])
 def data():
-    return render_template('data.html', plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group, plot_wordcloud=plot_wordcloud)
+    return render_template('data.html', plot_category=plot_category, plot_address=plot_address, plot_age_group=plot_age_group)
 
 
 if(__name__)=='__main__':
